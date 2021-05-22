@@ -1,6 +1,5 @@
 import React, { useRef } from 'react'
 import {Form} from '@unform/web'
-// import './styles/global.css';
 import Input from '../components/Form/input';
 import * as Yup from 'yup'
 
