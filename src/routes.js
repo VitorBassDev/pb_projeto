@@ -2,6 +2,7 @@ import React from 'react';
 import {  BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import Index from "./pages/Login";
+import Singup from "./pages/Singup";
 
 export default function Routes(){
   return(
@@ -9,7 +10,7 @@ export default function Routes(){
     <Switch>
       <Route path="/" exact component={Index} />
 
-      {/* <Route path="/singup" component={} />  */}
+      <Route path="/singup" component={Singup} /> 
     </Switch>
   </BrowserRouter>
   );
