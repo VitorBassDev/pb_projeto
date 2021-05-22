@@ -2,40 +2,47 @@ import React, { useRef } from 'react'
 import {Form} from '@unform/web'
 import './styles/global.css';
 import Input from './components/Form/input';
+import * as Yup from 'yup'
 
 
 function App() {
 
   const formRef = useRef(null)
 
-  function handleSubmit(data, {reset}){
-
-    // if(data.email === "" && data.password === ""){
-    //   formRef.current.setErrors({
-    //     email: 'O Email é Obrigatório',
-    //     password: 'Senha Obrigatória'
+  async function handleSubmit(data, {reset}){
+    try{    
+      const schema = Yup.object().shape({
+        email: Yup.string()
+          .email('Digite um email válido ')
+          .required('Campo EMAIL Obrigatório'),
+        password: Yup.string()
+          .min(6, 'No mínimo 6 caracteres')
+          .required('Campo PASSWORD Obrigatório')
         
-    //   })
-    // }
-    //   else if (data.email === ""){
-    //     formRef.current.setErrors({
-    //       password: 'Email Obrigatório'
-    //     })
-    //   }
+        })
 
-    //   else if (data.password === ""){
-    //     formRef.current.setErrors({
-    //       password: 'Senha Obrigatória'
-    //     })
-    //   }
+        await schema.validate(data, {
+          abortEarly: false
+        })
 
-    // else{
-    //   console.log(data)
-    //   reset()
-    //   //reset(formRef)
-    // }
-    console.log(data)
-  }
+        console.log(data)
+        formRef.current.setErrors({})
+
+      } catch(err){
+        if(err instanceof Yup.ValidationError){
+          console.log(err)
+          const errorsMessages = {
+
+          }
+
+          err.inner.forEach(error => {
+            errorsMessages[error.path] = error.message
+          })
+          formRef.current.setErrors(errorsMessages)
+        }
+      }
+    }
+  
   
   return (
     <>
@@ -52,7 +59,7 @@ function App() {
             </label>
 
             <Input 
-              type="email" 
+              
               name="email" 
               class="form-control" 
               id="InputEmail" 
@@ -84,3 +91,28 @@ function App() {
 }
 
 export default App;
+
+    // if(data.email === "" && data.password === ""){
+    //   formRef.current.setErrors({
+    //     email: 'O Email é Obrigatório',
+    //     password: 'Senha Obrigatória'
+        
+    //   })
+    // }
+    //   else if (data.email === ""){
+    //     formRef.current.setErrors({
+    //       password: 'Email Obrigatório'
+    //     })
+    //   }
+
+    //   else if (data.password === ""){
+    //     formRef.current.setErrors({
+    //       password: 'Senha Obrigatória'
+    //     })
+    //   }
+
+    // else{
+    //   console.log(data)
+    //   reset()
+    //   //reset(formRef)
+    // }
