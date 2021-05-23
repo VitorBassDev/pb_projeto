@@ -27,6 +27,7 @@ Esse projeto foi desenvolvido com as seguintes Tecnologias e Ferramentas:
 
 ## Estrutura do Projeto
 
+```
 pb_frontend 
 .
 ├── README.md
@@ -54,6 +55,7 @@ pb_frontend
 ├── 
 │ 
 .
+```
 
 ## 🚧 Features
 
@@ -69,7 +71,7 @@ pb_frontend
 ## 🚧 Features com problemas 
 -  Comunicação efetiva com a API do PetBooking (`feature não funciona, retorna erro de **CORS** no navegador`).
 
-## Melhorias
+## 🚧 Melhorias que poderão ser realizadas
 -  Implementação efetiva da API.
 -  Desing do FrontEnd | Págians e Formulários(`estilização`).
 -  Após o cadastro, criar sessão automática e redirecionar para a página de usuário logado.
