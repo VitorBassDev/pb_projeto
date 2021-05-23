@@ -7,10 +7,11 @@ function Wellcome() {
 
   const history = useHistory(); 
   const token   = localStorage.getItem('token');
+  const nome    = localStorage.getItem('nome');
 
   async function handleLogout(){  
     try {
-      const response = await api.post(`sessions`, token)
+      const response = await api.delete(`sessions`, token)
       console.log(response.data.authentication_token)
       localStorage.clear();
       await history.push('/')
@@ -28,7 +29,7 @@ function Wellcome() {
   return (
     <>
       <div  className="App">
-        <p> Seja bem Vindo `Nome do usuário`</p>
+        <p> Seja bem Vindo {nome} </p>
         <Link
          onClick={handleLogout}>    Fazer Lougout
          </Link>
