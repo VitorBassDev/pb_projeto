@@ -1,14 +1,19 @@
 import React, { useRef } from 'react'
+import { useHistory } from "react-router-dom";
 import {Form} from '@unform/web'
 import Input from '../components/Form/input';
 import * as Yup from 'yup'
+import api from '../services/apiPetBooking'
+import swal from 'sweetalert'
 
 
-function SingUp() {
+function SingUp(name, ...rest) {
+  const history = useHistory(); 
 
   const formRef = useRef(null)
 
   async function handleSubmit(data, {reset}){
+
     try{    
       const schema = Yup.object().shape({
         name: Yup.string()
@@ -19,7 +24,6 @@ function SingUp() {
         password: Yup.string()
           .min(6, 'No mínimo 6 caracteres')
           .required('Campo PASSWORD Obrigatório')
-        
         })
 
         await schema.validate(data, {
@@ -27,7 +31,7 @@ function SingUp() {
         })
 
         console.log(data)
-        formRef.current.setErrors({})
+        formRef.current.setErrors({})      
 
       } catch(err){
         if(err instanceof Yup.ValidationError){
@@ -42,35 +46,48 @@ function SingUp() {
           formRef.current.setErrors(errorsMessages)
         }
       }
+
+      try {
+        const response = await api.post(`users`, data)
+        console.log(response.data.authentication_token)
+        await history.push('/wellcome')
+        
+      } catch (err) {
+        console.log(err)
+        swal({
+          title: "Erro ao Cadadastrar Usuário!",
+          text: "Verifique a comunicação com a API",
+          icon: "warning",
+          button: "Tentar Novamente!",
+          }); 
+        }
     }
-  
   
   return (
     <>
-    
-    <div className="container">
       <div  className="App">
-
+      <h1 className="text-primary text-center mt-2 mb-4"> Cadastro de usuário </h1>
+      
         <Form ref={formRef} onSubmit={handleSubmit}>
 
           <div class="form-group">
+            
             <label 
               for="InputName" 
-              class="text-info"> Nome
+              class="text-primary"> * Nome
             </label>
-
             <Input 
               type="text"
               name="name" 
               class="form-control" 
               id="InputName" 
               placeholder="Nome"/>
+              <div class="invalid-feedback">Example invalid feedback text</div>
 
             <label 
               for="InputEmail" 
-              class="text-info"> Endereço de email 
+              class="text-primary"> * Endereço de email
             </label>
-
             <Input 
               
               name="email" 
@@ -80,9 +97,8 @@ function SingUp() {
            
             <label 
               for="InputPassword" 
-              class="text-info"> Endereço de email 
+              class="text-primary"> * Senha 
             </label>
-
             <Input 
 
               type="password" 
@@ -91,13 +107,15 @@ function SingUp() {
               id="InputPassword" 
               placeholder="*********"/>
 
-            <button type="submit" class="btn btn-info mt-4">Enviar</button>
+            <div className="AlertCampos">
+              <span className="text-warning">* Campos Obrigatórios</span>
+            </div>
+            <button type="submit" class="btn btn-primary mt-4">Entrar</button>
             
           </div>
 
         </Form>
-
-      </div>
+        
     </div>
 
     </>
