@@ -1,0 +1,20 @@
+## 🚧 Features
+
+- [x] Página de Login com formulário(`Validações | Persistência de dados no localStorage`).
+- [x] Página de Cadastro com formulário(`Validações`).
+- [x] Página de Logout com (`Busca dados no localStorage`).
+- [x] Validação de campos em branco e tipos de dados(`Utilização do Yup e UnForm`).
+- [x] Serviço de comunicação com APIs externos (`Utilização do Axios`).
+- [X] Implementação do **HEADERS** com a *X-Application-toke* passada.
+- [x] Alerta de mensagens personalizadas (`Utilização do SweetAlert`).
+- [x] Roteamento de paginas.
+
+## 🚧 Features com problemas 
+-  Comunicação efetiva com a API do PetBooking (`feature não funciona, retorna erro de **CORS** no navegador`).
+
+## Melhorias
+-  Implementação efetiva da API.
+-  Desing do FrontEnd | Págians e Formulários(`estilização`).
+-  Após o cadastro, criar sessão automática e redirecionar para a página de usuário logado.
+-  Retornar as mensagens originárias do BACKEND.
+
